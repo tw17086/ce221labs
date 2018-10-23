@@ -1,0 +1,88 @@
+CE221 PROGRAMMING LAB 2 - WRITING AND USING CLASSES
+(Aim to complete this before your lab in week 5.)
+
+
+Overview
+
+The aim of this lab is to write a program that will read in numbers from a file, perform some arithmetic operations on then and write the results to a file. The program will be written using several classes.
+
+(The compilation instructions assume that you are using TextPad but you may use an IDE for this lab if you wish.)
+
+
+Preparation
+
+Create in your CE221 folder on your M: drive a new folder called lab2.
+
+
+An Input Class
+
+The first step involves the writing of a class called ReadArray which can be used to read integers from a data file into an array. There will be no more than 100 numbers in the file.
+
+The header file for the class is provided; copy the file ReadArray.h into your newly-created folder.
+
+The array needs to be visible to other objects so it is a public member of the class. The other public members of the class are an array that will hold 100 integers, a count of the number of integers actually stored in the array, a constructor which takes a file name as an argument (as a C-string) and a function that reads the contents of the file into the array and finally closes the file.
+
+The class has one private member of type ifstream (an input file stream).
+
+The functions should be implemented in a file called ReadArray.cpp.
+
+The constructor should associate the stream with the file (aborting with an appropriate error message if the file cannot be opened) and also initialise the count to 0. Note that we cannot use the same approach as we used last week to associate the stream with the file.  In lab1b we wrote ifstream f(filename); but this can be used only if we can associate the stream with the file when the stream is declared.  This time we need to perform the association in the constructor so, assuming that the stream is called infile, you would need to use something like infile.open(filename). After doing this you can use if (!infile) as in lab1b to check for failure to open the file. To abort the program (after printing an appropriate message) if the file was not opened succesfully you should use a call exit(1); - you should include <cstdlib> to use this function. (Some compilers will recognise the exit function without this include, but many will not.)
+
+The body of the function to read the contents of the file into the array should use a loop similar to that used in lab1b. Since the input will fail when the end of the file has been reached you should not input directly into the array, but instead input into a variable and in place of the code to update the sum and largest value write a line to copy the contents of the variable into the array, using something like array[count++] = n.
+
+Compile ReadArray.cpp using Ctrl-4 to check for syntax errors but don't attempt to load and run yet since there is currently no main program.
+
+
+Testing the Class
+
+In a new file (called something like Main.cpp) write a main function which initialises an object of type ReadArray, supplying as an argument to the constructor the string "Data.dat". Compile and attempt to run this program using the usual Ctrl-4 Ctrl-5 Ctrl-6 sequence. You should get a message indicating that the file cannot be opened.
+
+Copy the file Data.dat into your current folder and try to run the program again - this time there should be no error message.
+
+Add to the end of the main function code a call to the function to read the contents of the file and (temporarily, for testing purposes) a loop to output the contents of the array. Recompile and run to check that the data has been input successfully.
+
+
+A Data-Processing Class
+
+Write in a new file called Stats.h a declaration for a class called Stats that has three public static methods to calculate
+
+a.  average of an array
+
+static double average(const int a[], int count);
+
+b.  largest in an array
+
+static int largest(const int a[], int count);
+
+c.  sum of an array
+
+static int sum(const int a[], int count);
+
+In all cases the second argument indicates the number of integers in the array.
+
+In a new file called Stats.cpp write complete definitions of these functions. Note that when writing the implementation of static methods outside the class we do not use the keyword static so you will need to use lines such as
+
+int Stats::sum(const int a[], int count)
+
+Compile this file using Ctrl-4 to check for errors.
+
+
+Outputting to a File
+
+Download a copy of WriteNumber.zip and extract its contents into the current folder. A class to assist with the output of numbers to a file has been provided in the files WriteNumber.h and WriteNumber.cpp. [ A short program to test the class is also provided. This program does not use the files you have written so if you want to compile and run this test program in TextPad you should temporarily move all of the .o files in the folder into another folder (since using Ctrl-5 in TextPad links and loads all .o files in the folder).  To run the test program compile WriteNumber.cpp using Ctrl-4 then compile, load and run WriteMain.cpp using the Ctrl-4 Ctrl-5 Ctrl-6 sequence. Having completed the testing delete WriteMain.o and move the original .o files back into the lab folder. ]
+
+Remove from your main function the loop to output the contents of the array and add code to create a WriteNumber object, supplying a filename for the output as an argument to the constructor. (Do not use "Data.dat"; we don't want to overwrite the input file.)
+
+Now add calls to the three functions from the Stats class, supplying as arguments in each case the array from the ReadArray class and its length. Use the appropriate functions from the WriteNumber class to output the results returned by these calls to the new file (preceded by appropriate messsage strings such as "The sum is").You will need to use lines such as
+
+wn.writeInt(Stats::sum(ra.array, ra.count));
+
+Finally add a call to the file-closing function from the WriteNumber class.
+
+Compile, load and run and examine the output file to check that the results appear to be reasonable.
+
+Additional Exercises (Optional)
+
+1 Modify your main function so that the names of the input and output files are supplied as command-line arguments.
+
+2 Add more methods to the Stats class to obtain other statistics about the array (e.g. standard deviation, most frequently-occurring number).
