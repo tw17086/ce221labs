@@ -7,19 +7,21 @@ import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.HashMap;
 
-public class CE203_2018_Ex2 {
+public class CE203_2018_Ex2{
 
-    private JFrame theApp;
-    private JTextArea txtaOutput;
-    private JTextField txtfInput;
-    private LinkedList<String> linkedList;
+    private JFrame theApp; //reference to the frame
+    private JTextArea txtaOutput; //the text area where output is displayed
+    private JTextField txtfInput; //the text field that input is taken from
+    private LinkedList<String> linkedList; //the list that words are stored in
 
     private CE203_2018_Ex2() {
+        //set up frame
         theApp = new JFrame("Assignment 1 Exercise 2");
         theApp.setLayout(new BorderLayout());
         theApp.setSize(900, 300);
         theApp.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        //set up panel containing buttons
         JPanel panButtons = new JPanel();
         theApp.add(panButtons, BorderLayout.NORTH);
         JButton butAddWord = new JButton("Add word"),
@@ -29,7 +31,10 @@ public class CE203_2018_Ex2 {
                 butRemoveAll = new JButton("Remove all occurences"),
                 butClear = new JButton("Clear list");
 
+        //initialise linked list
         linkedList = new LinkedList<>();
+
+        //add action listener to button to add words to list
         butAddWord.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -43,6 +48,7 @@ public class CE203_2018_Ex2 {
             }
         });
 
+        //add action listener to button to display words that end in a certain letter
         butDisplaySelect.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -67,6 +73,7 @@ public class CE203_2018_Ex2 {
             }
         });
 
+        //add action listener to button to search the list for a certain word
         butSearch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -111,6 +118,7 @@ public class CE203_2018_Ex2 {
             }
         });
 
+        //add action listener to button to remove the last occurrence of a word
         butRemoveLast.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -124,6 +132,7 @@ public class CE203_2018_Ex2 {
             }
         });
 
+        //add action listener to button to remove all occurrences of a word
         butRemoveAll.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -137,6 +146,7 @@ public class CE203_2018_Ex2 {
             }
         });
 
+        //add action listener to button to clear the list
         butClear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -144,6 +154,8 @@ public class CE203_2018_Ex2 {
                 txtaOutput.setText("List cleared of all words.");
             }
         });
+
+        //then add buttons to panel
         panButtons.add(butAddWord);
         panButtons.add(butDisplaySelect);
         panButtons.add(butSearch);
@@ -151,13 +163,13 @@ public class CE203_2018_Ex2 {
         panButtons.add(butRemoveAll);
         panButtons.add(butClear);
 
+        //set up the input
         JPanel panText = new JPanel();
         theApp.add(panText, BorderLayout.SOUTH);
-        txtfInput = new
-
-                JTextField(75);
+        txtfInput = new JTextField(75);
         panText.add(txtfInput);
 
+        //set up the output
         JPanel panOutput = new JPanel();
         theApp.add(panOutput, BorderLayout.CENTER);
         txtaOutput = new JTextArea();
@@ -176,6 +188,8 @@ public class CE203_2018_Ex2 {
     }
 
     private boolean validWordCheck(String s) {
-        return s.matches("([A-Z]|[a-z]|-|[0-9])*") && !s.equals("");
+        // method takes a string and checks if it contains only letters, numbers or hyphens and begins with a letter-- using a Regular Expression
+        return s.matches("([A-Z]|[a-z])([A-Z]|[a-z]|-|[0-9])*");
     }
+
 }

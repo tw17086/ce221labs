@@ -5,19 +5,18 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CE203_2018_Ex1 {
-    public static void main(String[] args) {
-        new AssFrame("Assignment 1");
-    }
-}
+public class CE203_2018_Ex1 extends JFrame {
 
-class AssFrame extends JFrame {
+    public static void main(String[] args) {
+        new CE203_2018_Ex1("Assignment 1 Exercise 1");
+    }
+
     private int red;
     private int green;
     private int blue;
     //store the values taken from text fields - each referring to a int value corresponding to each of 'RGB'
 
-    AssFrame(String title) {
+    CE203_2018_Ex1(String title) {
         //configure the frame
         this.setTitle(title);
         this.setLayout(new BorderLayout());
@@ -82,16 +81,19 @@ class AssFrame extends JFrame {
 
                 //range check each value and adjust as appropriate then update the message
                 if (validInput) {
-                    if (red < 0) { red = 200; }
-                    else if (red > 255) red = 255;
+                    if (red < 0) {
+                        red = 200;
+                    } else if (red > 255) red = 255;
                     txtfRed.setText(Integer.toString(red));
 
-                    if (green < 0) { green = 200; }
-                    else if (green > 255) green = 255;
+                    if (green < 0) {
+                        green = 200;
+                    } else if (green > 255) green = 255;
                     txtfGreen.setText(Integer.toString(green));
 
-                    if (blue < 0) { blue = 200; }
-                    else if (blue > 255) blue = 255;
+                    if (blue < 0) {
+                        blue = 200;
+                    } else if (blue > 255) blue = 255;
                     txtfBlue.setText(Integer.toString(blue));
 
                     lblMessage.setText("1704969");
